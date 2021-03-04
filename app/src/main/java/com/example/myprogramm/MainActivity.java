@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fragmentManager = getSupportFragmentManager();
         b1 = findViewById(R.id.button1);
         b2 = findViewById(R.id.button2);
         b3 = findViewById(R.id.button3);
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(savedInstanceState == null){
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(firstPage, null);
+            fragmentTransaction.add(R.id.container, firstPage);
             fragmentTransaction.commit();
         }
     }
