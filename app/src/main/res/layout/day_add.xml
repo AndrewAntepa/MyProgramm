@@ -42,10 +42,23 @@
                 android:layout_height="wrap_content"
                 android:text="Воскресеье"/>
         </LinearLayout>
-        <TimePicker
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:timePickerMode="spinner"/>
+            android:orientation="vertical"
+            android:gravity="center">
+            <TimePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner"/>
+            <NumberPicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Добавить" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 public class AddPage extends AppCompatActivity {
     Button byDate, byTime;
     AddByDays addByDays;
+    AddByTime addByTime;
     FragmentManager fragmentManager;
 
     @Override
@@ -26,6 +27,7 @@ public class AddPage extends AppCompatActivity {
         byDate = findViewById(R.id.byDays);
         byTime = findViewById(R.id.ByTime);
         addByDays = new AddByDays();
+        addByTime = new AddByTime();
         fragmentManager = getSupportFragmentManager();
 
 
@@ -34,6 +36,15 @@ public class AddPage extends AppCompatActivity {
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.addFrame, addByDays);
+                fragmentTransaction.commit();
+            }
+        });
+
+        byTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.addFrame, addByTime);
                 fragmentTransaction.commit();
             }
         });
