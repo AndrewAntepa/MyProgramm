@@ -1,5 +1,6 @@
 package com.example.myprogramm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class FirstPage extends Fragment {
+    Button addButton;
+    Intent intent;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.first_page, null);
+        View view = inflater.inflate(R.layout.first_page, container, false);
+
+        addButton = view.findViewById(R.id.addButton);
+        intent = new Intent(view.getContext(), AddPage.class);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 }
