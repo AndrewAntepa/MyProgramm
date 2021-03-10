@@ -53,11 +53,13 @@
                 android:timePickerMode="spinner"/>
             <NumberPicker
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/number_day"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Добавить" />
+                android:text="Добавить"
+                android:id="@+id/addByDay"/>
         </LinearLayout>
     </LinearLayout>
 

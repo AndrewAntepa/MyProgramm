@@ -35,8 +35,10 @@ public class AddPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.addFrame, addByDays);
-                fragmentTransaction.commit();
+                if(fragmentManager != null){
+                    fragmentTransaction.replace(R.id.addFrame, addByDays);
+                    fragmentTransaction.commit();
+                }
             }
         });
 
@@ -44,8 +46,10 @@ public class AddPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.addFrame, addByTime);
-                fragmentTransaction.commit();
+                if(fragmentManager != null){
+                    fragmentTransaction.replace(R.id.addFrame, addByTime);
+                    fragmentTransaction.commit();
+                }
             }
         });
     }

@@ -22,7 +22,7 @@ public class FirstPage extends Fragment {
         View view = inflater.inflate(R.layout.first_page, container, false);
 
         addButton = view.findViewById(R.id.addButton);
-        intent = new Intent(view.getContext(), AddPage.class);
+        intent = new Intent(getActivity(), AddPage.class);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
