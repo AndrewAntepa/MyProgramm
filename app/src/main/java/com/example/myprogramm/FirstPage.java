@@ -12,9 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+
 public class FirstPage extends Fragment {
     Button addButton;
     Intent intent;
+    ListView listView;
 
     @Nullable
     @Override
@@ -22,13 +26,17 @@ public class FirstPage extends Fragment {
         View view = inflater.inflate(R.layout.first_page, container, false);
 
         addButton = view.findViewById(R.id.addButton);
+        listView = view.findViewById(R.id.listview);
         intent = new Intent(getActivity(), AddPage.class);
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
             }
         });
+
+        
 
         return view;
     }

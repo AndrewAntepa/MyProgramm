@@ -5,12 +5,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     Button b1, b2, b3, b4;
     FragmentManager fragmentManager;
     FirstPage firstPage;
+    SecondPage secondPage = new SecondPage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,5 +31,16 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.add(R.id.container, firstPage);
             fragmentTransaction.commit();
         }
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                if(fragmentManager != null){
+                    fragmentTransaction.replace(R.id.container, firstPage);
+                    fragmentTransaction.commit();
+                }
+            }
+        });
     }
 }

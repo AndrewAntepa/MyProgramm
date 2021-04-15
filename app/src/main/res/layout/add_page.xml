@@ -1,38 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Препарат"
-        android:textSize="20sp"/>
+        android:hint="Название препарат"
+        android:textSize="20sp"
+        android:id="@+id/editTittle"/>
+
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/datePick"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="5dp">
-        <Button
+        android:gravity="center_horizontal">
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="По дням"
-            android:layout_margin="10dp"
-            android:id="@+id/byDays"/>
-        <Button
+            android:textSize="20sp"
+            android:text="Принимать "/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:entries="@array/spinnerInterval"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/intervalSpinner"/>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="По времени"
-            android:id="@+id/ByTime"/>
+            android:textSize="20sp"
+            android:text=" раз в день"/>
     </LinearLayout>
 
-    <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/addFrame"/>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_horizontal">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="20sp"
+           android:text="Дозировка  "/>
+       <Spinner
+           android:layout_width="wrap_content"
+           android:entries="@array/spinnerDose"
+           android:textSize="20sp"
+           android:layout_height="wrap_content"
+           android:id="@+id/doseSpinner"/>
+   </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Добавить"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/addPill"/>
+
 </LinearLayout>
