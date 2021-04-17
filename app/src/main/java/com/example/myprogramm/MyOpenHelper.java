@@ -16,7 +16,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "pills";
 
-    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_TITLE = "name";
     public static final String COLUMN_START = "start";
     public static final String COLUMN_INTERVAL = "interval";
     public static final String COLUMN_AMOUNT_TIME = "amount";
@@ -31,7 +31,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME
                 + "( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_NAME + " TEXT,"
+                + COLUMN_TITLE + " TEXT,"
                 + COLUMN_START + " TEXT, "
                 + COLUMN_INTERVAL + " INTRGER, "
                 + COLUMN_AMOUNT_TIME + " REAL);";
