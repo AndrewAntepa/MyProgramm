@@ -16,7 +16,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_NAME = "pills";
 
-    public static final String COLUMN_TITLE = "name";
+    public static final String COLUMN_TITLE = "tittle";
     public static final String COLUMN_START = "start";
     public static final String COLUMN_INTERVAL = "interval";
     public static final String COLUMN_AMOUNT_TIME = "amount";

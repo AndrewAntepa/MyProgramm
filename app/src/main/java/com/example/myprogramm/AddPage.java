@@ -66,6 +66,7 @@ public class AddPage extends AppCompatActivity {
                 String s = editText.getText().toString();
                 if(!TextUtils.isEmpty(s)) {
                     String date = datePicker.getDayOfMonth() + "." + datePicker.getMonth() + "." + datePicker.getYear();
+
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(MyOpenHelper.COLUMN_TITLE, editText.getText().toString());
                     contentValues.put(MyOpenHelper.COLUMN_START, date);
