@@ -51,6 +51,8 @@ public class FirstPage extends Fragment {
         String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
         int [] idTo = {R.id.tittleExam, R.id.startExam, R.id.nextExam, R.id.amountExam, R.id.imageExam};
         String[] keyQuery = {"tittle", "start", "interval", "amount"};
+        simpleAdapter = new SimpleAdapter(getContext(), mapPills, R.layout.pils_example, keyFrom, idTo);
+        pillsList.setAdapter(simpleAdapter);
         Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
 //        if(cursor.moveToFirst()) {
 
@@ -67,10 +69,8 @@ public class FirstPage extends Fragment {
                 map.put("amount", amount);
                 map.put("image", R.drawable.pill_example);
                 mapPills.add(map);
-                simpleAdapter = new SimpleAdapter(getContext(), mapPills, R.layout.pils_example, keyFrom, idTo);
-                pillsList.setAdapter(simpleAdapter);
+                simpleAdapter.notifyDataSetChanged();
             }
-        simpleAdapter.notifyDataSetChanged();
 //        }
         cursor.close();
 
