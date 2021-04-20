@@ -57,7 +57,6 @@ public class FirstPage extends Fragment {
         pillsList.setAdapter(simpleAdapter);
         Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
 
-        HashMap<String, Object> map = new HashMap<>();
         cursor.moveToFirst();
             while (cursor.moveToNext()) {
                 String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
@@ -66,6 +65,7 @@ public class FirstPage extends Fragment {
                 String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
                 cursor.moveToNext();
 
+                HashMap<String, Object> map = new HashMap<>();
                 map.put("tittle", tittle);
                 map.put("start", start);
                 map.put("next", next);
