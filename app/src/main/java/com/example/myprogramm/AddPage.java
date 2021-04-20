@@ -73,6 +73,8 @@ public class AddPage extends AppCompatActivity {
                     contentValues.put(MyOpenHelper.COLUMN_INTERVAL, interval.getSelectedItem().toString());
                     contentValues.put(MyOpenHelper.COLUMN_AMOUNT_TIME, dose.getSelectedItem().toString());
                     sdb.insert(MyOpenHelper.TABLE_NAME, null, contentValues);
+                    myOpenHelper.close();
+                    sdb.close();
 
                     Intent intent = new Intent(AddPage.this, MainActivity.class);
                     startActivity(intent);

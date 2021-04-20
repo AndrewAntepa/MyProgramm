@@ -45,6 +45,8 @@ public class FirstPage extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
+                myOpenHelper.close();
+                sdb.close();
             }
         });
 
@@ -54,14 +56,15 @@ public class FirstPage extends Fragment {
         simpleAdapter = new SimpleAdapter(getContext(), mapPills, R.layout.pils_example, keyFrom, idTo);
         pillsList.setAdapter(simpleAdapter);
         Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
-//        if(cursor.moveToFirst()) {
 
-            HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
+        cursor.moveToFirst();
             while (cursor.moveToNext()) {
                 String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
                 String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
                 String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
                 String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
+                cursor.moveToNext();
 
                 map.put("tittle", tittle);
                 map.put("start", start);
@@ -69,11 +72,9 @@ public class FirstPage extends Fragment {
                 map.put("amount", amount);
                 map.put("image", R.drawable.pill_example);
                 mapPills.add(map);
-                simpleAdapter.notifyDataSetChanged();
             }
-//        }
+        simpleAdapter.notifyDataSetChanged();
         cursor.close();
-
 
         return view;
     }
