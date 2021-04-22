@@ -52,18 +52,17 @@ public class FirstPage extends Fragment {
 
         String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
         int [] idTo = {R.id.tittleExam, R.id.startExam, R.id.nextExam, R.id.amountExam, R.id.imageExam};
-        String[] keyQuery = {"tittle", "start", "interval", "amount"};
+        String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
         simpleAdapter = new SimpleAdapter(getContext(), mapPills, R.layout.pils_example, keyFrom, idTo);
         pillsList.setAdapter(simpleAdapter);
         Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
 
-        cursor.moveToFirst();
+//        cursor.moveToFirst();
             while (cursor.moveToNext()) {
                 String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
                 String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
                 String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
                 String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
-                cursor.moveToNext();
 
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("tittle", tittle);
