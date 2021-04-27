@@ -49,7 +49,11 @@ public class FirstPage extends Fragment {
                 sdb.close();
             }
         });
+        addDataBase();
+        return view;
+    }
 
+    public void addDataBase(){
         String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
         int [] idTo = {R.id.tittleExam, R.id.startExam, R.id.nextExam, R.id.amountExam, R.id.imageExam};
         String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
@@ -57,24 +61,21 @@ public class FirstPage extends Fragment {
         pillsList.setAdapter(simpleAdapter);
         Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
 
-//        cursor.moveToFirst();
-            while (cursor.moveToNext()) {
-                String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
-                String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
-                String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
-                String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
+        while (cursor.moveToNext()) {
+            String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
+            String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
+            String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
+            String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
 
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("tittle", tittle);
-                map.put("start", start);
-                map.put("next", next);
-                map.put("amount", amount);
-                map.put("image", R.drawable.pill_example);
-                mapPills.add(map);
-            }
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("tittle", tittle);
+            map.put("start", start);
+            map.put("next", next);
+            map.put("amount", amount);
+            map.put("image", R.drawable.pill_example);
+            mapPills.add(map);
+        }
         simpleAdapter.notifyDataSetChanged();
         cursor.close();
-
-        return view;
     }
 }
