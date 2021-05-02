@@ -1,7 +1,10 @@
 package com.example.myprogramm;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,6 +22,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.Calendar;
 
 public class AddPage extends AppCompatActivity {
     Button add;
@@ -76,12 +81,21 @@ public class AddPage extends AppCompatActivity {
                     myOpenHelper.close();
                     sdb.close();
 
-                    startService(new Intent(AddPage.this, NotifyService.class));
+                    alarmNotify(getApplicationContext(), Integer.parseInt(interval.getSelectedItem().toString()));
 
-                    Intent intent = new Intent(AddPage.this, MainActivity.class);
-                    startActivity(intent);
+                    //startService(new Intent(AddPage.this, NotifyService.class));
+
+                    startActivity(new Intent(AddPage.this, MainActivity.class));
                 } else Toast.makeText(getApplicationContext(), "Заполните поле названия лекарства", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public static void alarmNotify(Context context, int inter){
+        Calendar calendar = Calendar.getInstance();
+        Intent aintent = new Intent(context, NotifyService.class);
+        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis()+5000, 1000, alarmPend);
     }
 }

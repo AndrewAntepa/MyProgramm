@@ -6,7 +6,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
@@ -60,4 +59,11 @@ public class NotifyService extends Service {
         // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+//    public static void alarmNotify(Context context, boolean onOffService){
+//        Intent aintent = new Intent(context, NotifyService.class);
+//        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, 0);
+//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+//        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 0, alarmPend);
+//    }
 }
