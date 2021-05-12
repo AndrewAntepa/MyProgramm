@@ -10,11 +10,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
+import androidx.annotation.UiThread;
 import androidx.core.app.NotificationCompat;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class NotifyService extends Service {
     private int NOTIFY_ID = 101;
     private static String CHANNEL_ID = "Cat channel";
+    private static String LIST = "linedList";
+    LinkedList<HashMap<String, Object>> list = new LinkedList<>();
+    Timer timer;
+    MyTimerTask myTimerTask;
 
     public NotifyService() {
     }
@@ -67,4 +80,14 @@ public class NotifyService extends Service {
 //        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis()+5000, 1000*3, alarmPend);
 //
 //    }
+
+    class MyTimerTask extends TimerTask{
+        @Override
+        public void run() {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd:MMMM:yyyy HH:mm:ss a");
+            final String date = sdf.format(calendar.getTime());
+
+        }
+    }
 }

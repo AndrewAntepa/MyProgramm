@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class FirstPage extends Fragment {
     Button addButton;
@@ -48,7 +49,7 @@ public class FirstPage extends Fragment {
             }
         });
         addDataBase();
-//        alarmNotifyStart();
+        alarmNotifyStart(mapPills);
         return view;
     }
 
@@ -82,7 +83,8 @@ public class FirstPage extends Fragment {
 
     public void alarmNotifyStart(LinkedList<HashMap<String, Object>> o){
         Intent intent = new Intent(getContext(), NotifyService.class);
-        intent.putExtra(o);
-        getContext().startService();
+        intent.putExtra("linedList", o);
+        Objects.requireNonNull(getContext()).startService(intent);
+        /*????????????????????????????????????????????*/
     }
 }
