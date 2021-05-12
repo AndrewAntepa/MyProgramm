@@ -45,11 +45,10 @@ public class FirstPage extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(intent);
-                myOpenHelper.close();
-                sdb.close();
             }
         });
         addDataBase();
+//        alarmNotifyStart();
         return view;
     }
 
@@ -77,5 +76,13 @@ public class FirstPage extends Fragment {
         }
         simpleAdapter.notifyDataSetChanged();
         cursor.close();
+        myOpenHelper.close();
+        sdb.close();
+    }
+
+    public void alarmNotifyStart(LinkedList<HashMap<String, Object>> o){
+        Intent intent = new Intent(getContext(), NotifyService.class);
+        intent.putExtra(o);
+        getContext().startService();
     }
 }

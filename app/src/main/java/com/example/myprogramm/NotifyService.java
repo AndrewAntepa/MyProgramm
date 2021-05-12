@@ -60,10 +60,11 @@ public class NotifyService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-//    public static void alarmNotify(Context context, boolean onOffService){
+//    public static void alarmNotify(Context context, int inter){
 //        Intent aintent = new Intent(context, NotifyService.class);
-//        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, 0);
+//        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
 //        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-//        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis(), 0, alarmPend);
+//        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis()+5000, 1000*3, alarmPend);
+//
 //    }
 }

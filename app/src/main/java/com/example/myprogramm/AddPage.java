@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class AddPage extends AppCompatActivity {
     Button add;
@@ -81,21 +82,11 @@ public class AddPage extends AppCompatActivity {
                     myOpenHelper.close();
                     sdb.close();
 
-                    alarmNotify(getApplicationContext(), Integer.parseInt(interval.getSelectedItem().toString()));
-
-                    //startService(new Intent(AddPage.this, NotifyService.class));
+//                    startService(new Intent(AddPage.this, NotifyService.class));
 
                     startActivity(new Intent(AddPage.this, MainActivity.class));
                 } else Toast.makeText(getApplicationContext(), "Заполните поле названия лекарства", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    public static void alarmNotify(Context context, int inter){
-        Calendar calendar = Calendar.getInstance();
-        Intent aintent = new Intent(context, NotifyService.class);
-        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis()+5000, 1000, alarmPend);
     }
 }
