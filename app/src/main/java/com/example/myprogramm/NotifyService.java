@@ -87,7 +87,6 @@ public class NotifyService extends Service {
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd:MMMM:yyyy HH:mm:ss a");
             final String date = sdf.format(calendar.getTime());
-
         }
     }
 }
