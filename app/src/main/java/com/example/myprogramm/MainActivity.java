@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         addDataBase();
+        Intent serv = new Intent(MainActivity.this, NotifyService.class);
+        startService(intent);
 //        alarmNotifyStart(mapPills);
     }
 

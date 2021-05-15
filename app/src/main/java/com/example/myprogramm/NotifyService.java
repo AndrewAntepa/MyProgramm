@@ -1,5 +1,6 @@
 package com.example.myprogramm;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,11 +9,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 
 import androidx.annotation.UiThread;
 import androidx.core.app.NotificationCompat;
 
+import java.text.BreakIterator;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -56,8 +59,8 @@ public class NotifyService extends Service {
                 .setContentIntent(pIntent)
                 .addAction(R.drawable.ic_launcher_background, "Выполнено", donePend)
                 .setAutoCancel(true);
-        Notification notification = nBuilder.build();
-        notificationManager.notify(NOTIFY_ID++, notification);
+        final Notification notification = nBuilder.build();
+//        notificationManager.notify(NOTIFY_ID++, notification);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -82,12 +85,19 @@ public class NotifyService extends Service {
 //    }
 
     class MyTimerTask extends TimerTask{
+        Intent aintent = new Intent(getApplicationContext(), NotifyService.class);
+        PendingIntent alarmPend = PendingIntent.getService(getApplicationContext(), 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
         @Override
         public void run() {
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd:MMMM:yyyy HH:mm:ss a");
-            final String date = sdf.format(calendar.getTime());
-
+            Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), alarmPend);
+                    handler.postDelayed(this, 5000);
+                }
+            });
         }
     }
 }
