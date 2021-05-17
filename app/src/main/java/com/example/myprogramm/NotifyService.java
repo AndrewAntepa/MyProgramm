@@ -90,14 +90,7 @@ public class NotifyService extends Service {
         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
         @Override
         public void run() {
-            Handler handler = new Handler();
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    alarmManager.set(AlarmManager.RTC, System.currentTimeMillis(), alarmPend);
-                    handler.postDelayed(this, 5000);
-                }
-            });
+
         }
     }
 }
