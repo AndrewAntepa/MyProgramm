@@ -77,7 +77,7 @@ public class NotifyService extends Service {
                 .setAutoCancel(true);
         Notification notification = nBuilder.build();
         notificationManager.notify(NOTIFY_ID++, notification);
-        alarmNotify(getApplicationContext(), 5000);
+        alarmNotify(getApplicationContext(), 3600000);
         return super.onStartCommand(intent, flags, startId);
     }
 

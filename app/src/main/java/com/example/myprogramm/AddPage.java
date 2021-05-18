@@ -85,8 +85,6 @@ public class AddPage extends AppCompatActivity {
                     myOpenHelper.close();
                     sdb.close();
                     startActivity(new Intent(AddPage.this, MainActivity.class));
-
-//                    startService(new Intent(AddPage.this, NotifyService.class));
                 } else Toast.makeText(getApplicationContext(), "Заполните поле названия лекарства", Toast.LENGTH_LONG).show();
             }
         });
