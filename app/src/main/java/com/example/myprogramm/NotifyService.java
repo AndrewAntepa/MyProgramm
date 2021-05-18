@@ -92,7 +92,7 @@ public class NotifyService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public static void alarmNotify(Context context, int inter) {
+    public static void alarmNotify(Context context, long inter) {
         Intent aintent = new Intent(context, NotifyService.class);
         PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
