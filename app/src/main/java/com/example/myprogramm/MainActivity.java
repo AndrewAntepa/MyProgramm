@@ -1,5 +1,6 @@
 package com.example.myprogramm;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -7,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +29,12 @@ public class MainActivity extends AppCompatActivity {
     SimpleAdapter simpleAdapter;
     LinkedList<HashMap<String, Object>> mapPills = new LinkedList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService(new Intent(MainActivity.this, NotifyService.class));
 
         addButton = findViewById(R.id.addButton);
         pillsList = findViewById(R.id.listview);
@@ -45,13 +49,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        addDataBase();
-        Intent serv = new Intent(MainActivity.this, NotifyService.class);
-        startService(intent);
-//        alarmNotifyStart(mapPills);
+        readDataBase();
     }
 
-    public void addDataBase(){
+    public void readDataBase(){
         String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
         int [] idTo = {R.id.tittleExam, R.id.startExam, R.id.nextExam, R.id.amountExam, R.id.imageExam};
         String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
@@ -78,11 +79,4 @@ public class MainActivity extends AppCompatActivity {
         myOpenHelper.close();
         sdb.close();
     }
-
-//    public void alarmNotifyStart(LinkedList<HashMap<String, Object>> o){
-//        Intent intent = new Intent(getApplicationContext(), NotifyService.class);
-//        intent.putExtra("linedList", o);
-//        Objects.requireNonNull(getApplicationContext()).startService(intent);
-//        /*????????????????????????????????????????????*/
-//    }
 }

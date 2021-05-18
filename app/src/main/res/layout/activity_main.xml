@@ -28,7 +28,8 @@
         android:textSize="15sp"
         android:id="@+id/addButton"
         android:layout_gravity="bottom|center_horizontal"
-        android:background="@drawable/buttonshape"
-        android:backgroundTint="@android:color/holo_red_dark"/>
-
+        android:background="@drawable/buttonshape"/>
+<!--<androidx.appcompat.widget.AppCompatButton
+    android:layout_width=""
+    android:layout_height=""/>-->
 </FrameLayout>

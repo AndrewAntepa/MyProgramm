@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -37,6 +39,7 @@ public class AddPage extends AppCompatActivity {
     SQLiteDatabase sdb;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +84,9 @@ public class AddPage extends AppCompatActivity {
                     sdb.insert(MyOpenHelper.TABLE_NAME, null, contentValues);
                     myOpenHelper.close();
                     sdb.close();
+                    startActivity(new Intent(AddPage.this, MainActivity.class));
 
 //                    startService(new Intent(AddPage.this, NotifyService.class));
-
-                    startActivity(new Intent(AddPage.this, MainActivity.class));
                 } else Toast.makeText(getApplicationContext(), "Заполните поле названия лекарства", Toast.LENGTH_LONG).show();
             }
         });

@@ -2,6 +2,7 @@ package com.example.myprogramm;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -9,9 +10,15 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.widget.SimpleAdapter;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.UiThread;
 import androidx.core.app.NotificationCompat;
 
@@ -29,8 +36,8 @@ public class NotifyService extends Service {
     private static String CHANNEL_ID = "Cat channel";
     private static String LIST = "linedList";
     LinkedList<HashMap<String, Object>> list = new LinkedList<>();
-    Timer timer;
-    MyTimerTask myTimerTask;
+    SQLiteDatabase sdb;
+    MyOpenHelper myOpenHelper;
 
     public NotifyService() {
     }
@@ -40,8 +47,17 @@ public class NotifyService extends Service {
         super.onCreate();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        myOpenHelper = new MyOpenHelper(getApplicationContext());
+        sdb = myOpenHelper.getWritableDatabase();
+        readDataBase();
+
+        for (int i = 0; i < list.size(); i++) {
+
+        }
+
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         NotificationChannel nChannel = new NotificationChannel(CHANNEL_ID, "Пора принять лекарство!", NotificationManager.IMPORTANCE_DEFAULT);
         notificationManager.createNotificationChannel(nChannel);
@@ -59,9 +75,9 @@ public class NotifyService extends Service {
                 .setContentIntent(pIntent)
                 .addAction(R.drawable.ic_launcher_background, "Выполнено", donePend)
                 .setAutoCancel(true);
-        final Notification notification = nBuilder.build();
-//        notificationManager.notify(NOTIFY_ID++, notification);
-
+        Notification notification = nBuilder.build();
+        notificationManager.notify(NOTIFY_ID++, notification);
+        alarmNotify(getApplicationContext(), 5000);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -76,21 +92,35 @@ public class NotifyService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-//    public static void alarmNotify(Context context, int inter){
-//        Intent aintent = new Intent(context, NotifyService.class);
-//        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
-//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-//        alarmManager.setRepeating(AlarmManager.RTC, System.currentTimeMillis()+5000, 1000*3, alarmPend);
-//
-//    }
+    public static void alarmNotify(Context context, int inter) {
+        Intent aintent = new Intent(context, NotifyService.class);
+        PendingIntent alarmPend = PendingIntent.getService(context, 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, inter, alarmPend);
+    }
 
-    class MyTimerTask extends TimerTask{
-        Intent aintent = new Intent(getApplicationContext(), NotifyService.class);
-        PendingIntent alarmPend = PendingIntent.getService(getApplicationContext(), 0, aintent, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
-        @Override
-        public void run() {
+    public void readDataBase(){
 
+        String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
+        String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
+        Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
+            String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
+            String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
+            String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
+
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("tittle", tittle);
+            map.put("start", start);
+            map.put("next", next);
+            map.put("amount", amount);
+            map.put("image", R.drawable.pill_example);
+            list.add(map);
         }
+        cursor.close();
+        myOpenHelper.close();
+        sdb.close();
     }
 }
