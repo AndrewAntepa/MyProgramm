@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class GoodJog extends AppCompatActivity {
-    Button button, again;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,6 @@ public class GoodJog extends AppCompatActivity {
         setContentView(R.layout.activity_good_jog);
 
         button = findViewById(R.id.back);
-        again = findViewById(R.id.again);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

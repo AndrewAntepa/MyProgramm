@@ -34,10 +34,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class NotifyService extends Service {
     private int NOTIFY_ID = 101;
     private static String CHANNEL_ID = "Cat channel";
-    private static String LIST = "linedList";
     LinkedList<HashMap<String, Object>> list = new LinkedList<>();
-    SQLiteDatabase sdb;
-    MyOpenHelper myOpenHelper;
+//    SQLiteDatabase sdb;
+//    MyOpenHelper myOpenHelper;
 
     public NotifyService() {
     }
@@ -50,9 +49,9 @@ public class NotifyService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        myOpenHelper = new MyOpenHelper(getApplicationContext());
-        sdb = myOpenHelper.getWritableDatabase();
-        readDataBase();
+//        myOpenHelper = new MyOpenHelper(getApplicationContext());
+//        sdb = myOpenHelper.getWritableDatabase();
+//        readDataBase();
 
         for (int i = 0; i < list.size(); i++) {
 
@@ -99,28 +98,28 @@ public class NotifyService extends Service {
         alarmManager.set(AlarmManager.RTC, inter, alarmPend);
     }
 
-    public void readDataBase(){
-
-        String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
-        String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
-        Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
-
-        while (cursor.moveToNext()) {
-            String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
-            String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
-            String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
-            String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
-
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("tittle", tittle);
-            map.put("start", start);
-            map.put("next", next);
-            map.put("amount", amount);
-            map.put("image", R.drawable.pill_example);
-            list.add(map);
-        }
-        cursor.close();
-        myOpenHelper.close();
-        sdb.close();
-    }
+//    public void readDataBase(){
+//
+//        String[] keyFrom = {"tittle", "start", "next", "amount", "image"};
+//        String[] keyQuery = {MyOpenHelper.COLUMN_TITLE, MyOpenHelper.COLUMN_START, MyOpenHelper.COLUMN_INTERVAL, MyOpenHelper.COLUMN_AMOUNT_TIME};
+//        Cursor cursor = sdb.query(MyOpenHelper.TABLE_NAME, keyQuery, null, null, null, null, null);
+//
+//        while (cursor.moveToNext()) {
+//            String tittle = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_TITLE));
+//            String start = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_START));
+//            String next = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_INTERVAL));
+//            String amount = cursor.getString(cursor.getColumnIndex(MyOpenHelper.COLUMN_AMOUNT_TIME));
+//
+//            HashMap<String, Object> map = new HashMap<>();
+//            map.put("tittle", tittle);
+//            map.put("start", start);
+//            map.put("next", next);
+//            map.put("amount", amount);
+//            map.put("image", R.drawable.pill_example);
+//            list.add(map);
+//        }
+//        cursor.close();
+//        myOpenHelper.close();
+//        sdb.close();
+//    }
 }
